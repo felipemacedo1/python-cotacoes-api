@@ -1,0 +1,66 @@
+# Arquivos Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Dependências
+node_modules/
+
+# Sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# local anottations
+docs
+docs/*
+# Docker
+.dockerignore
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Configurações locais
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage
+.coverage
+htmlcov/
+
+# Pytest
+.pytest_cache/
+
+# Arquivos de backup
+*.bak
+
+# Arquivos de distribuição
+dist/
+build/
+*.egg-info/
