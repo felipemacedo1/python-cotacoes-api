@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Header da página -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                <div>
+                    <h1 class="display-6 mb-2">
+                        <i class="bi bi-graph-up text-success me-2"></i>
+                        Cotações em Tempo Real
+                    </h1>
+                    <p class="text-muted mb-0">
+                        Acompanhe os preços e variações das principais ações da B3
+                    </p>
+                </div>
+                
+                <!-- Informações adicionais -->
+                <div class="mt-3 mt-md-0">
+                    {% if total_ativos > 0 %}
+                    <span class="badge bg-primary fs-6">
+                        <i class="bi bi-bar-chart me-1"></i>
+                        {{ total_ativos }} ativo{{ 's' if total_ativos != 1 else '' }}
+                    </span>
+                    {% endif %}
+                    
+                    <span class="badge bg-info fs-6 ms-2" id="last-update">
+                        <i class="bi bi-clock me-1"></i>
+                        Atualizado agora
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensagem de erro -->
+    {% if error_message %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>Erro:</strong> {{ error_message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Formulário de busca avançada -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-search me-2"></i>
+                        Buscar Ativos
+                    </h5>
+                    
+                    <form method="GET" action="{{ url_for('index') }}" class="row g-3">
+                        <div class="col-md-8">
+                            <label for="ativos-input" class="form-label">Digite os códigos dos ativos separados por vírgula:</label>
+                            <input type="text" class="form-control" id="ativos-input" name="ativos" 
+                                   placeholder="Ex: PETR4, VALE3, BBAS3, ITUB4"
+                                   value="{{ request.args.get('ativos', '') }}">
+                            <div class="form-text">
+                                Exemplos: PETR4, VALE3, BBAS3, ITUB4, BBDC4, ABEV3, MGLU3, WEGE3
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary me-2">
+                                <i class="bi bi-search me-1"></i>
+                                Buscar
+                            </button>
+                            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-clockwise me-1"></i>
+                                Limpar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards das cotações -->
+    {% if cotacoes %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="mb-3">
+                <i class="bi bi-check-circle text-success me-2"></i>
+                Ativos Encontrados
+            </h3>
+        </div>
+    </div>
+    
+    <div class="row g-3" id="cotacoes-container">
+        {% for ticker, dados in cotacoes.items() %}
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div class="card h-100 border-0 shadow-sm cotacao-card" data-ticker="{{ ticker }}">
+                <div class="card-body">
+                    <!-- Header do card -->
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="card-title mb-1 fw-bold">{{ dados.symbol }}</h5>
+                            <p class="card-subtitle text-muted small mb-0" title="{{ dados.longName }}">
+                                {{ dados.shortName[:30] }}{% if dados.shortName|length > 30 %}...{% endif %}
+                            </p>
+                        </div>
+                        
+                        <!-- Indicador de variação -->
+                        <span class="badge {% if dados.variacao_percent >= 0 %}bg-success{% else %}bg-danger{% endif %} fs-6">
+                            {% if dados.variacao_percent >= 0 %}
+                                <i class="bi bi-arrow-up"></i>
+                            {% else %}
+                                <i class="bi bi-arrow-down"></i>
+                            {% endif %}
+                            {{ dados.variacao_percent|percentage }}
+                        </span>
+                    </div>
+
+                    <!-- Preço atual -->
+                    <div class="mb-3">
+                        <div class="display-6 fw-bold {% if dados.variacao_percent >= 0 %}text-success{% else %}text-danger{% endif %}">
+                            {{ dados.regularMarketPrice|currency(dados.currency) }}
+                        </div>
+                        <small class="text-muted">{{ dados.currency }}</small>
+                    </div>
+
+                    <!-- Informações adicionais -->
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="border-end">
+                                <div class="text-muted small">Fechamento Anterior</div>
+                                <div class="fw-semibold">
+                                    {{ dados.regularMarketPreviousClose|currency(dados.currency) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-muted small">Valor de Mercado</div>
+                            <div class="fw-semibold">
+                                {{ dados.marketCap|market_cap }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer do card -->
+                <div class="card-footer bg-transparent border-0 pt-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="bi bi-clock me-1"></i>
+                            Tempo real
+                        </small>
+                        <button class="btn btn-sm btn-outline-primary" onclick="refreshStock('{{ ticker }}')">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Ativos inválidos -->
+    {% if ativos_invalidos %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-3">
+                <i class="bi bi-exclamation-triangle text-warning me-2"></i>
+                Ativos Não Encontrados
+            </h3>
+            
+            {% for ticker, dados in ativos_invalidos.items() %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ dados.symbol }}:</strong> {{ dados.error or 'Ativo não encontrado na base de dados.' }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Estado vazio -->
+    {% if not cotacoes and not ativos_invalidos and not error_message %}
+    <div class="row">
+        <div class="col-12 text-center py-5">
+            <div class="mb-4">
+                <i class="bi bi-graph-up display-1 text-muted"></i>
+            </div>
+            <h3 class="text-muted mb-3">Bem-vindo ao Cotações API</h3>
+            <p class="text-muted mb-4">
+                Use o formulário acima para buscar cotações de ações da B3 ou experimente alguns exemplos:
+            </p>
+            
+            <!-- Links de exemplo -->
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <a href="?ativos=PETR4,VALE3,BBAS3" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-fuel-pump me-1"></i>Petróleo & Mineração
+                </a>
+                <a href="?ativos=ITUB4,BBDC4,BBAS3" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-bank me-1"></i>Bancos
+                </a>
+                <a href="?ativos=ABEV3,MGLU3,WEGE3" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-shop me-1"></i>Varejo & Consumo
+                </a>
+                <a href="?ativos=PETR4,VALE3,ITUB4,BBDC4,ABEV3,MGLU3" class="btn btn-outline-success btn-sm">
+                    <i class="bi bi-star me-1"></i>Top 6 Ações
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Modal para loading -->
+<div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center py-4">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+                <p class="mb-0">Buscando cotações...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Atualizar timestamp
+function updateTimestamp() {
+    const element = document.getElementById('last-update');
+    if (element) {
+        const now = new Date();
+        element.innerHTML = `<i class="bi bi-clock me-1"></i>Atualizado às ${now.toLocaleTimeString()}`;
+    }
+}
+
+// Atualizar uma ação específica
+function refreshStock(ticker) {
+    // Implementação futura para atualização individual
+    console.log('Atualizando ação:', ticker);
+}
+
+// Atualizar timestamp a cada minuto
+setInterval(updateTimestamp, 60000);
+
+// Mostrar modal de loading em submissões de formulário
+document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function() {
+            const modal = new bootstrap.Modal(document.getElementById('loadingModal'));
+            modal.show();
+        });
+    });
+});
+</script>
+{% endblock %}
