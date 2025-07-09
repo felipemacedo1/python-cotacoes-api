@@ -1,0 +1,354 @@
+/* CSS personalizado para Cotações API */
+
+/* Variáveis CSS */
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --border-radius: 0.5rem;
+    --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --box-shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Reset e configurações gerais */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: #f5f6fa;
+}
+
+/* Navbar customizada */
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    transform: translateY(-1px);
+}
+
+/* Cards de cotações */
+.cotacao-card {
+    transition: all 0.3s ease;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.cotacao-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-lg);
+}
+
+.cotacao-card .card-body {
+    padding: 1.5rem;
+}
+
+.cotacao-card .card-title {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.cotacao-card .card-subtitle {
+    font-size: 0.875rem;
+    line-height: 1.3;
+}
+
+/* Preços e variações */
+.display-6 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.text-success {
+    color: var(--success-color) !important;
+}
+
+.text-danger {
+    color: var(--danger-color) !important;
+}
+
+/* Badges customizados */
+.badge {
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+}
+
+.badge.fs-6 {
+    font-size: 0.875rem !important;
+}
+
+/* Formulários */
+.form-control {
+    border-radius: var(--border-radius);
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Botões */
+.btn {
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0.5rem 1rem;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--box-shadow);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0b5ed7 100%);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color) 0%, #157347 100%);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Alertas */
+.alert {
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: var(--box-shadow);
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c2c7 100%);
+    color: #721c24;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffecb5 100%);
+    color: #664d03;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d1e7dd 0%, #badbcc 100%);
+    color: #0f5132;
+}
+
+/* Cards especiais */
+.card {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: none;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--light-color) 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 600;
+}
+
+/* Animações de loading */
+.spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Modal customizado */
+.modal-content {
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: var(--box-shadow-lg);
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, var(--light-color) 0%, #e9ecef 100%);
+    border-top: 1px solid #dee2e6;
+}
+
+footer a {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+footer a:hover {
+    color: #0b5ed7;
+}
+
+/* Estados vazios */
+.text-center .display-1 {
+    font-size: 4rem;
+    opacity: 0.3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+    
+    .display-6 {
+        font-size: 1.5rem;
+    }
+    
+    .cotacao-card .card-body {
+        padding: 1rem;
+    }
+    
+    .btn-group .btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    
+    .display-6 {
+        font-size: 1.25rem;
+    }
+    
+    .badge.fs-6 {
+        font-size: 0.75rem !important;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* Melhorias de acessibilidade */
+.btn:focus,
+.form-control:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Animações suaves */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cotacao-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--light-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ced4da;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd;
+}
+
+/* Tipografia melhorada */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--dark-color);
+}
+
+.display-6 {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Estados de carregamento */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Melhorias visuais para indicadores */
+.border-end {
+    border-right: 1px solid #dee2e6 !important;
+}
+
+.fw-semibold {
+    font-weight: 600 !important;
+}
+
+/* Dark mode support (futuro) */
+@media (prefers-color-scheme: dark) {
+    /* Configurações para tema escuro podem ser adicionadas aqui */
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .btn,
+    footer {
+        display: none !important;
+    }
+    
+    .cotacao-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+}
