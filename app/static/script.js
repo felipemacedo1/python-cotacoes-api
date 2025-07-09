@@ -1,7 +1,7 @@
-// JavaScript personalizado para Cotações API
+// JavaScript personalizado para BView
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Cotações API carregado com sucesso!');
+    console.log('BView carregado com sucesso!');
     
     // Inicializar tooltips do Bootstrap
     initializeTooltips();
@@ -317,7 +317,7 @@ function showNotification(message, type = 'info') {
         <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <i class="bi bi-info-circle text-${type} me-2"></i>
-                <strong class="me-auto">Cotações API</strong>
+                <strong class="me-auto">BView</strong>
                 <small>${new Date().toLocaleTimeString('pt-BR')}</small>
                 <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
             </div>
@@ -361,7 +361,7 @@ function copyToClipboard(text) {
 function shareCurrentPage() {
     if (navigator.share) {
         navigator.share({
-            title: 'Cotações API',
+            title: 'BView',
             text: 'Confira as cotações das ações em tempo real',
             url: window.location.href
         });

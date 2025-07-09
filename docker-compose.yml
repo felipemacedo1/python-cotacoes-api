@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   # Aplicação Flask
-  cotacoes-api:
+  bview:
     build: .
-    container_name: cotacoes-api
+    container_name: bview
     ports:
       - "5000:5000"
     environment:
@@ -16,7 +16,7 @@ services:
       - ./logs:/app/logs
     restart: unless-stopped
     networks:
-      - cotacoes-network
+      - bview-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 30s
@@ -25,41 +25,41 @@ services:
       start_period: 40s
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.cotacoes-api.rule=Host(`localhost`)"
+      - "traefik.http.routers.bview.rule=Host(`localhost`)"
 
   # Nginx para servir arquivos estáticos (opcional, para produção)
   nginx:
     image: nginx:alpine
-    container_name: cotacoes-nginx
+    container_name: bview-nginx
     ports:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./app/static:/usr/share/nginx/html/static:ro
     depends_on:
-      - cotacoes-api
+      - bview
     restart: unless-stopped
     networks:
-      - cotacoes-network
+      - bview-network
     profiles:
       - production
 
   # Redis para cache (opcional, para implementações futuras)
   redis:
     image: redis:7-alpine
-    container_name: cotacoes-redis
+    container_name: bview-redis
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
     restart: unless-stopped
     networks:
-      - cotacoes-network
+      - bview-network
     profiles:
       - cache
 
 networks:
-  cotacoes-network:
+  bview-network:
     driver: bridge
 
 volumes:

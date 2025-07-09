@@ -1,4 +1,4 @@
-# Cotações API
+# BView
 
 Uma aplicação web completa desenvolvida com Flask e Jinja2 para consultar cotações de ações da B3 em tempo real através da API pública do BRAPI.dev.
 
@@ -14,7 +14,7 @@ Uma aplicação web completa desenvolvida com Flask e Jinja2 para consultar cota
 ## 📁 Estrutura do Projeto
 
 ```
-cotacoes-api/
+bview/
 ├── app/
 │   ├── __init__.py          # Aplicação Flask principal
 │   ├── services.py          # Serviços de integração com API
@@ -56,7 +56,7 @@ cotacoes-api/
 1. **Clone o repositório:**
    ```bash
    git clone <repository-url>
-   cd cotacoes-api
+   cd bview
    ```
 
 2. **Execute com Docker Compose:**
@@ -72,7 +72,7 @@ cotacoes-api/
 1. **Clone o repositório:**
    ```bash
    git clone <repository-url>
-   cd cotacoes-api
+   cd bview
    ```
 
 2. **Crie um ambiente virtual:**
@@ -180,7 +180,7 @@ O projeto foi estruturado para fácil extensão:
 docker-compose up -d
 
 # Ver logs
-docker-compose logs -f cotacoes-api
+docker-compose logs -f bview
 
 # Parar serviços
 docker-compose down
@@ -214,7 +214,7 @@ Isso executará:
 ### Logs
 ```bash
 # Logs da aplicação
-docker-compose logs cotacoes-api
+docker-compose logs bview
 
 # Logs do nginx (se usando produção)
 docker-compose logs nginx

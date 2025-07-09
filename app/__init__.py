@@ -121,7 +121,7 @@ def create_app():
         """Endpoint para verificação de saúde da aplicação"""
         return jsonify({
             'status': 'healthy',
-            'service': 'cotacoes-api'
+            'service': 'bview'
         })
     
     @app.errorhandler(404)
