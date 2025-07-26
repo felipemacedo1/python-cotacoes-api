@@ -55,7 +55,7 @@ bview/
 
 1. **Clone o repositório:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/felipemacedo1/python-cotacoes-api
    cd bview
    ```
 
@@ -71,7 +71,7 @@ bview/
 
 1. **Clone o repositório:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/felipemacedo1/python-cotacoes-api
    cd bview
    ```
 
@@ -247,4 +247,4 @@ Para dúvidas ou problemas:
 
 ---
 
-Desenvolvido com ❤️ usando Flask e Bootstrap
+Desenvolvido Por Felipe Macedo usando Flask e Bootstrap
