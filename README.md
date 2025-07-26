@@ -247,4 +247,4 @@ Para dúvidas ou problemas:
 
 ---
 
-Desenvolvido Por Felipe Macedo usando Flask e Bootstrap
+Desenvolvido Por **Felipe Macedo** usando Flask e Bootstrap
